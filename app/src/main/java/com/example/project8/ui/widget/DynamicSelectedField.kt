@@ -1,6 +1,7 @@
 package com.example.project8.ui.widget
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -18,7 +19,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun DynamicSelectedTextField(
     selectedValue:String,
-    options:String,
+    options:List<String>,
     label:String,
     onValueChangedEvent: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -44,5 +45,18 @@ fun DynamicSelectedTextField(
                 .menuAnchor()
                 .fillMaxWidth()
         )
+        ExposedDropdownMenu(expanded = expanded,
+            onDismissRequest = {expanded = false}) {
+            options.forEach { option: String ->
+                DropdownMenuItem(
+                    text = { Text(text = option)},
+                    onClick = {
+                        expanded = false
+                        onValueChangedEvent(option)
+                    }
+                )
+            }
+        }
+
     }
 }

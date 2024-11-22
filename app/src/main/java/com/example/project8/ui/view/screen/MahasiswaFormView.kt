@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -174,6 +175,18 @@ fun MahasiswaFormView(
                     singleLine = true,
                     shape = RoundedCornerShape(50.dp)
                 )
+                Spacer(modifier = Modifier.padding(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(onClick = {onBackButtonClicked( ) }) {
+                        Text(text = "Kembali")
+                    }
+                    Button(onClick = {onSubmitedButtonClicked(listData)}) {
+                        Text(text = "Simpan")
+                    }
+                }
             }
         }
     }

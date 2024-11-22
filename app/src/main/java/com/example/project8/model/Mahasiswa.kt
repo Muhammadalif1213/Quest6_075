@@ -1,4 +1,7 @@
 package com.example.project8.model
 
-class Mahasiswa {
-}
+data class Mahasiswa(
+    val nim:String ="",
+    val nama:String ="",
+    val email:String=""
+)

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
@@ -43,25 +44,28 @@ import com.example.project8.ui.widget.DynamicSelectedTextField
 
 @Composable
 fun RencanaStudyView(
-    mahasiswa : Mahasiswa,
+    mahasiswa: Mahasiswa,
     onSubmitedButtonClicked: (MutableList<String>) -> Unit,
     onBackButtonClicked: () -> Unit
-){
-    var chosenDropdown by remember{
+) {
+    var chosenDropdown by remember {
         mutableStateOf("")
     }
     var checked by remember { mutableStateOf(false) }
     var pilihanKelas by remember {
         mutableStateOf("")
     }
-    var listData: MutableList<String> = mutableListOf(chosenDropdown,pilihanKelas)
+    var listData: MutableList<String> = mutableListOf(chosenDropdown, pilihanKelas)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = colorResource(id = R.color.primary))
     ) {
-        Row (
-            modifier = Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
 
         ) {
             Image(
@@ -96,9 +100,15 @@ fun RencanaStudyView(
         }
         Box(
             modifier = Modifier
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(topEnd = 15.dp, topStart = 15.dp)
+                )
                 .fillMaxSize()
                 .padding(16.dp)
-        ){
+
+        ) {
+            Column {
             Text(text = "Pilih mata kuliah peminatan", fontWeight = FontWeight.Bold)
             Text(
                 text = "Silahkan pilih matakuliah yang anda inginkan",
@@ -115,15 +125,15 @@ fun RencanaStudyView(
                 }
             )
             Spacer(modifier = Modifier.padding(8.dp))
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
-            ){
+            ) {
                 RuangKelas.kelas.forEach { data ->
-                    Row (verticalAlignment = Alignment.CenterVertically) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
                             selected = pilihanKelas == data,
-                            onClick = {pilihanKelas = data}
+                            onClick = { pilihanKelas = data }
                         )
                         Text(data)
                     }
@@ -136,7 +146,7 @@ fun RencanaStudyView(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Checkbox(
                     checked = checked,
-                    onCheckedChange = {checked = it},
+                    onCheckedChange = { checked = it },
                     enabled = chosenDropdown.isNotBlank() && pilihanKelas.isNotBlank()
                 )
                 Text(
@@ -145,16 +155,17 @@ fun RencanaStudyView(
                 )
             }
             Spacer(modifier = Modifier.padding(8.dp))
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
-            ){
-                Button(onClick = {onBackButtonClicked() }) {
+            ) {
+                Button(onClick = { onBackButtonClicked() }) {
                     Text(text = "Kembali")
                 }
-                Button(onClick = {onSubmitedButtonClicked(listData)}, enabled = checked) {
+                Button(onClick = { onSubmitedButtonClicked(listData) }, enabled = checked) {
                     Text(text = "Lanjut")
                 }
+            }
             }
         }
     }

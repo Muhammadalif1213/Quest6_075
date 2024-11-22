@@ -31,7 +31,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.project8.R
+import com.example.project8.data.MataKuliah
 import com.example.project8.model.Mahasiswa
+import com.example.project8.ui.widget.DynamicSelectedTextField
 
 @Composable
 fun RencanaStudyView(
@@ -86,6 +88,27 @@ fun RencanaStudyView(
                 )
             }
         }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ){
+            Text(text = "Pilih mata kuliah peminatan", fontWeight = FontWeight.Bold)
+            Text(
+                text = "Silahkan pilih matakuliah yang anda inginkan",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Light
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            DynamicSelectedTextField(
+                selectedValue = chosenDropdown,
+                options = MataKuliah.options,
+                label = "mata Kuliah",
+                onValueChangedEvent = {
+                    chosenDropdown = it
+                }
+            )
 
+        }
     }
 }
